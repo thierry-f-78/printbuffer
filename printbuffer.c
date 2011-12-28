@@ -54,3 +54,8 @@ void printbuffer_cat(struct printbuffer *pf, const char *str)
 {
 	_printbuffer_cat(pf, str);
 }
+
+void printbuffer_del_char(struct printbuffer *pf, int nchar)
+{
+	_printbuffer_del_char(pf, nchar);
+}

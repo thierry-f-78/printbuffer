@@ -29,6 +29,7 @@ int printbuffer_printf(struct printbuffer *pf, const char *format, ...);
 void printbuffer_cat_len(struct printbuffer *pf, const char *str, int len);
 void printbuffer_char(struct printbuffer *pf, char c);
 void printbuffer_cat(struct printbuffer *pf, const char *str);
+void printbuffer_del_char(struct printbuffer *pf, int nchar);
 
 static inline
 struct printbuffer *_printbuffer_mem_new(char **buffer, int block,
@@ -127,5 +128,13 @@ void _printbuffer_cat(struct printbuffer *pf, const char *str)
 	printbuffer_char(pf, '\0');
 }
 
+static inline
+void _printbuffer_del_char(struct printbuffer *pf, int nchar)
+{
+	pf->cursor -= nchar;
+	if (pf->cursor < 0)
+		pf->cursor = 0;
+	(*pf->buffer)[pf->cursor] = '\0';
+}
 
 #endif /* __PRINTBUFFER_H__ */
